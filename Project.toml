@@ -1,0 +1,7 @@
+name = "QuickSystemBenchmarks"
+uuid = "334f4462-e086-4307-9562-c8485dd5d02f"
+authors = ["GHTaarn <62629455+GHTaarn@users.noreply.github.com>"]
+version = "0.1.0"
+
+[deps]
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
