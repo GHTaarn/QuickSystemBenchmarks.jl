@@ -6,11 +6,19 @@ function benchmark1()
 	return nothing
 end
 
-function runbenchmarks()
-	# Warm up runs
-	benchmark1()
+function benchmark2()
+	s = collect(1.0:1e4)
+	sort(s .* (-1).^s)
+	return nothing
+end
 
-	# Report the runtimes
-	@time benchmark1()
+function runbenchmarks()
+	for benchmark in [benchmark1, benchmark2]
+		# Warm up run
+		benchmark()
+
+		# Report the runtime
+		@time benchmark()
+	end
 end
 
