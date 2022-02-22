@@ -12,8 +12,28 @@ function benchmark2()
 	return nothing
 end
 
+function benchmark3()
+	nthreads = 4
+	arraysize = 1e6
+	a = Vector{Vector{Float64}}(UndefInitializer(), nthreads)
+	thread = Vector{Task}(UndefInitializer(), nthreads)
+
+	s = collect(1.0:arraysize)
+	a[1] = s .* (-1).^s
+	for i=2:nthreads a[i]=deepcopy(a[1]) end
+
+	for i = 1 : nthreads
+		thread[i] = @async sort!(a[i])
+	end
+	for i = 1 : nthreads
+		wait(thread[i])
+	end
+
+	return nothing
+end
+
 function runbenchmarks()
-	for benchmark in [benchmark1, benchmark2]
+	for benchmark in [benchmark1, benchmark2, benchmark3]
 		# Warm up run
 		benchmark()
 
